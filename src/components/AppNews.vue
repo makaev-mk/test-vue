@@ -3,13 +3,24 @@
     <div class="card mt-2 p-3">
       <h3>{{ title }}</h3>
       <div class="d-flex m-auto">
-        <app-button  @action="open" :text="openNews ? 'Закрыть' : 'Открыть'"></app-button>
-        <app-button v-if="wasRead" color="btn-danger" @action="$emit('unmark', id)" text="Отменить прочтение"></app-button>
+        <app-button  @action="open">
+          {{ openNews ? 'Закрыть' : 'Открыть' }}
+        </app-button>
+        <app-button v-if="wasRead"
+                    color="btn-danger"
+                    @action="$emit('unmark', id)">
+          Отменить прочтение
+        </app-button>
       </div>
       <div v-if="openNews">
         <hr/>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate dignissimos eveniet facere id illo ipsum laboriosam magni, nihil nobis non nulla rem repudiandae sit sunt vel velit voluptatibus. Praesentium, quibusdam.</p>
-        <app-button color="btn-primary m-3" v-if="!wasRead" @action="mark" text="Прочесть новость"></app-button>
+        <app-button color="btn-primary m-3"
+                    v-if="!wasRead"
+                    @action="mark">
+          Прочесть новость
+        </app-button>
+        <AppNewsList/>
       </div>
     </div>
   </div>
@@ -17,6 +28,8 @@
 
 <script>
 import AppButton from './AppButton'
+import AppNewsList from './AppNewsList'
+
 export default {
   // props: ['title'],
   // emits: ['open-news'],
@@ -62,7 +75,8 @@ export default {
     // }
   },
   components: {
-    AppButton
+    AppButton,
+    AppNewsList
   }
 }
 </script>

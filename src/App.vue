@@ -49,6 +49,12 @@ export default {
       ]
     }
   },
+  provide() {
+    return {
+      title: 'Список новостей',
+      news: this.news
+    }
+  },
   methods: {
     readNews(data) {
       const idx = this.news.findIndex(news=> news.id === data)
