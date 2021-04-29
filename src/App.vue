@@ -29,12 +29,23 @@ export default {
       active: 'one'
     }
   },
+  mounted() {
+    setTimeout(()=>{
+      this.componentName = 'new comp name'
+    }, 1500)
+  }
+  ,
   computed: {
-    componentName() {
-      // if (this.active === 'one') {
-      //   return 'app-text-one'
-      // }
-      return 'app-text-' + this.active
+    // componentName() {
+    //   return 'app-text-' + this.active
+    // },
+    componentName: {
+      get() {
+        return 'app-text-' + this.active
+      },
+      set(value) {
+        console.log('compo', value)
+      }
     },
     oneColor() {
       return this.active === 'one' ? 'btn-primary' : ''
