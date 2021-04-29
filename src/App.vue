@@ -11,8 +11,7 @@
         >Two</app-button>
       </div>
     </div>
-    <app-text-one v-if="active === 'one'"/>
-    <app-text-two v-else-if="active === 'two'"/>
+    <component :is="componentName"></component>
   </div>
 </template>
 
@@ -26,6 +25,14 @@ export default {
   data() {
     return {
       active: 'one'
+    }
+  },
+  computed: {
+    componentName() {
+      // if (this.active === 'one') {
+      //   return 'app-text-one'
+      // }
+      return 'app-text-' + this.active
     }
   },
   components: {AppButton, AppTextOne, AppTextTwo}
