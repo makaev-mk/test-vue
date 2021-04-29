@@ -1,75 +1,34 @@
 <template>
   <div class="container pt-1">
     <div class="card">
-      <h1>Актульные новости на: {{ dateNews }} </h1>
-      <span>Открыто: {{ openRate }} | Прочитано: {{ writeNews }}</span>
+      <h2>Динамические и асихронные компоненты</h2>
+      <div>
+        <app-button @action="active = 'one'"
+                    :color="active==='one' ? 'btn-primary' : ''"
+        >One</app-button>
+        <app-button @action="active = 'two'"
+                    :color="active==='two' ? 'btn-primary' : ''"
+        >Two</app-button>
+      </div>
     </div>
-    <AppNews v-for="item in news"
-              :title="item.title"
-             :id="item.id"
-             :is-open="item.isOpen"
-             :was-read="item.wasRead"
-             @open-news="openRate++"
-             @read-news="readNews"
-             @unmark="unreadNews"
-             :key="item.id"
-    />
+    <app-text-one v-if="active === 'one'"/>
+    <app-text-two v-else-if="active === 'two'"/>
   </div>
 </template>
 
 <script>
-import AppNews from './components/AppNews'
+import AppButton from './components/AppButton'
+import AppTextOne from './components/AppTextOne'
+import AppTextTwo from './components/AppTextTwo'
 
 export default {
   name: 'App',
   data() {
     return {
-      writeNews: 0,
-      openRate: 0,
-      dateNews : new Date().toLocaleDateString(),
-      news: [
-        {
-          title: 'Официальный курс евро на среду вырос на две копейки',
-          id: 1,
-          isOpen:false,
-          wasRead: false
-        },
-        {
-          title: 'Путин рассчитывает на экспертную проработку мер по реализации послания',
-          id: 2,
-          isOpen:false,
-          wasRead: false
-        },
-        {
-          title: 'ДНР порекомендовала Киеву отказаться от попыток переписать "Минск-2"',
-          id: 3,
-          isOpen:false,
-          wasRead: false
-        }
-      ]
+      active: 'one'
     }
   },
-  provide() {
-    return {
-      title: 'Список новостей',
-      news: this.news
-    }
-  },
-  methods: {
-    readNews(data) {
-      const idx = this.news.findIndex(news=> news.id === data)
-      this.news[idx].wasRead = true
-      this.writeNews++
-    },
-    unreadNews(data) {
-      const news = this.news.find(news=>news.id === data)
-      news.wasRead = false
-      this.writeNews--
-    }
-  },
-  components: {
-    AppNews
-  }
+  components: {AppButton, AppTextOne, AppTextTwo}
 }
 </script>
 
