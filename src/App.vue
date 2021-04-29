@@ -4,14 +4,16 @@
       <h2>Динамические и асихронные компоненты</h2>
       <div>
         <app-button @action="active = 'one'"
-                    :color="active==='one' ? 'btn-primary' : ''"
+                    :color="oneColor"
         >One</app-button>
         <app-button @action="active = 'two'"
-                    :color="active==='two' ? 'btn-primary' : ''"
+                    :color="twoColor"
         >Two</app-button>
       </div>
     </div>
-    <component :is="componentName"></component>
+    <keep-alive>
+      <component :is="componentName"></component>
+    </keep-alive>
   </div>
 </template>
 
@@ -33,6 +35,12 @@ export default {
       //   return 'app-text-one'
       // }
       return 'app-text-' + this.active
+    },
+    oneColor() {
+      return this.active === 'one' ? 'btn-primary' : ''
+    },
+    twoColor() {
+      return this.active === 'two' ? 'btn-primary' : ''
     }
   },
   components: {AppButton, AppTextOne, AppTextTwo}
